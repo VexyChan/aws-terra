@@ -1,24 +1,23 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+  required_version = ">= 1.2.0"
 }
 
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+provider "aws" {
+  region  = "us-west-2"
+}
+
+resource "aws_instance" "Learningcli" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
 
   tags = {
-    Name = "HelloWorld"
+    Name = "Exampleterra"
   }
 }
